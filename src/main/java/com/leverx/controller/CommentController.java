@@ -1,11 +1,10 @@
 package com.leverx.controller;
 
-import com.leverx.exception.CommentNotFoundException;
-import com.leverx.exception.UserNotFoundException;
+import com.leverx.error.exception.UserNotFoundException;
 import com.leverx.model.Comment;
 import com.leverx.model.User;
-import com.leverx.service.intefaces.CommentService;
-import com.leverx.service.intefaces.UserService;
+import com.leverx.service.CommentService;
+import com.leverx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,42 +25,9 @@ public class CommentController {
         this.userService = userService;
     }
 
-    @GetMapping("/admins/comments")
-    public ResponseEntity<List<Comment>> getAllNotApprovedComments() {
-        List<Comment> comments = commentService.findAllNotApproved();
-        return comments != null && !comments.isEmpty()
-                ? new ResponseEntity<>(comments, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @PutMapping("/admins/comments/{id}")
-    public ResponseEntity<?> updateComment(@RequestBody Comment newComment, @PathVariable Long id) {
-        Comment comment = commentService.findById(id);
-        if (comment != null) {
-            comment.setApproved(newComment.isApproved());
-            comment.setMessage(newComment.getMessage());
-            comment.setCreatedAt(LocalDateTime.now());
-            boolean updated = commentService.update(comment);
-            return updated
-                    ? new ResponseEntity<>(HttpStatus.OK)
-                    : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-        }
-        else {
-            throw new CommentNotFoundException(id);
-        }
-    }
-
-    @DeleteMapping("/admins/comments/{id}")
-    public ResponseEntity<?> deleteComment(@PathVariable Long id) {
-        boolean deleted = commentService.deleteById(id);
-        return deleted
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-    }
-
     @GetMapping("/users/{id}/comments")
-    public ResponseEntity<List<Comment>> getAllCommentsByTraderIdAndApproved(@PathVariable Long id) {
-        List<Comment> comments = commentService.findAllByTraderIdAndApproved(id);
+    public ResponseEntity<List<Comment>> getAllApprovedCommentsByTraderId(@PathVariable Long id) {
+        List<Comment> comments = commentService.findAllApprovedByTraderId(id);
         return comments != null && !comments.isEmpty()
                 ? new ResponseEntity<>(comments, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -80,7 +46,7 @@ public class CommentController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         else {
-            throw new UserNotFoundException(id);
+            throw new UserNotFoundException("User not found");
         }
     }
 }

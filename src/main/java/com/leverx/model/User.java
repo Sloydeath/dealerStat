@@ -6,10 +6,15 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leverx.annotations.PasswordMatches;
+import com.leverx.annotations.ValidEmail;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
+@PasswordMatches
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,30 +26,42 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @NotEmpty
     @Column(name = "first_name")
     private String firstName;
 
+    @NotNull
+    @NotEmpty
     @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @ValidEmail
+    @NotNull
+    @NotEmpty
     @Column(name = "email", nullable = false)
     private String email;
 
+    @NotNull
+    @NotEmpty
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "active", nullable = false)
+    private boolean active;
+
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<GameObject> gameObjects = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -84,6 +101,7 @@ public class User {
                 ", createdAt=" + createdAt +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", active=" + active +
                 '}';
     }
 }
