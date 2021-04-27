@@ -12,7 +12,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
-        applicationContext.register(WebConfig.class, JpaConfig.class, SecurityConfig.class);
+        applicationContext.register(WebConfig.class, JpaConfig.class, SecurityConfig.class, RedisConfig.class, MailConfig.class);
         applicationContext.setServletContext(servletContext);
 
         // Dispatcher Servlet
