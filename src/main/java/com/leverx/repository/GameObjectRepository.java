@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface GameObjectRepository extends JpaRepository<GameObject, Long> {
-    @Query("SELECT go FROM GameObject go WHERE go.user.id = :id")
+    @Query("SELECT go FROM GameObject go WHERE go.user.id = :id AND go.user.active = true")
     List<GameObject> findAllByTraderId(@Param("id") Long id);
 }
