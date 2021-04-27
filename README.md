@@ -4,3 +4,6 @@ Technologies:
   * Spring MVC
   * Spring Security
   * Hibernate
+  * MySQL
+  * Redis
+  * Mail Service
