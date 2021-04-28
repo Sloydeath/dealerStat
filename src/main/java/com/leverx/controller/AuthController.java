@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.mail.MessagingException;
 
@@ -85,11 +84,17 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @GetMapping("/check_code")
-    public ResponseEntity<?> checkIfCodeExists(@RequestParam("email") String email) {
-        boolean codeIsExists = redisService.isCodeExists(email);
-        return codeIsExists
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PostMapping("/check_code")
+    public ResponseEntity<?> checkIfCodeExists(@RequestParam("email") String email) throws MessagingException {
+        boolean codeIsExists = redisService.isCodeForEmailActivationExists(email);
+        if (codeIsExists) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            redisService.setHashcodeForEmailActivation(email);
+            String code = redisService.getHashcodeForEmailActivation(email);
+            mailService.createMessageForEmailActivationAndSend(email, code);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
     }
 }

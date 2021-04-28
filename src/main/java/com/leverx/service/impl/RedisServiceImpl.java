@@ -35,6 +35,11 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
+    public boolean isCodeForPasswordResetExists(String email) {
+        return redisRepository.isExists(PREFIX_EMAIL_PASSWORD_RESET + email);
+    }
+
+    @Override
     public void setHashcodeForEmailActivation(String email) {
         String hashcode = HashCodeGenerator.generateHashCode();
         redisRepository.setHashcode(email, hashcode);
@@ -51,7 +56,7 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public boolean isCodeExists(String email) {
+    public boolean isCodeForEmailActivationExists(String email) {
         return redisRepository.isExists(email);
     }
 }
