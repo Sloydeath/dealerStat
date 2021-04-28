@@ -3,6 +3,8 @@ package com.leverx.service.impl;
 import com.leverx.error.exception.UserAlreadyExistException;
 import com.leverx.model.User;
 import com.leverx.model.UserRole;
+import com.leverx.model.custom.IRating;
+import com.leverx.model.custom.Rating;
 import com.leverx.model.enums.Role;
 import com.leverx.repository.UserRepository;
 import com.leverx.service.UserService;
@@ -59,8 +61,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deleteUserById(Long id) {
         if (userRepository.findById(id).isPresent()) {
-            userRepository.deleteById(id);
-            return true;
+            if (userRepository.findById(id).get().getRoles().stream().noneMatch(r -> r.getName().equals(Role.ADMIN))) {
+                userRepository.deleteById(id);
+                return true;
+            }
         }
         return false;
     }
@@ -82,5 +86,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isExists(String email) {
         return userRepository.findByUserEmail(email) != null;
+    }
+
+    @Override
+    public List<IRating> getTradersRating() {
+        return userRepository.getTradersRating();
     }
 }

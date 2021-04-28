@@ -49,4 +49,11 @@ public class CommentController {
             throw new UserNotFoundException("User not found");
         }
     }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<?> deleteUserById(@PathVariable("id") Long id) {
+        return userService.deleteUserById(id)
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
 }

@@ -1,6 +1,5 @@
 package com.leverx.controller;
 
-import com.leverx.error.ApiError;
 import com.leverx.error.exception.UserNotFoundException;
 import com.leverx.model.User;
 import com.leverx.model.dto.PasswordDTO;
