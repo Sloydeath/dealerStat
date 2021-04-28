@@ -2,6 +2,7 @@ package com.leverx.error.handler;
 
 import com.leverx.error.ApiError;
 import com.leverx.error.exception.UserAlreadyExistException;
+import com.leverx.error.exception.UserIsNotActiveException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -59,6 +60,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         log.error("409 Status Code", ex);
         String bodyOfResponse = "User with such email already exists";
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+
+    // 403
+    @ExceptionHandler(UserIsNotActiveException.class)
+    public ResponseEntity<Object> handleUserIsNotActive(final RuntimeException ex, final WebRequest request) {
+        log.error("403 Status Code", ex);
+        String bodyOfResponse = "Account is not active. Please, go to your email and activate";
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.FORBIDDEN, request);
     }
 
     @ExceptionHandler(Exception.class)

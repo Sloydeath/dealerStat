@@ -2,5 +2,5 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="4.0"><!--Modify the web version 4.0 to 3.1, pay attention to the constraint file on the previous line should also be modified-->
+         version="3.1">
 </web-app>

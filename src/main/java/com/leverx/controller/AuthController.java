@@ -87,14 +87,19 @@ public class AuthController {
     @PostMapping("/check_code")
     public ResponseEntity<?> checkIfCodeExists(@RequestParam("email") String email) throws MessagingException {
         boolean codeIsExists = redisService.isCodeForEmailActivationExists(email);
-        if (codeIsExists) {
-            return new ResponseEntity<>(HttpStatus.OK);
+        if (!codeIsExists) {
+            User user = userService.findUserByEmail(email);
+            if (user == null) {
+                log.info("In method checkIfCodeExists: User not found Exception");
+                throw new UserNotFoundException("User not found");
+            }
+            if (!user.isActive()) {
+                redisService.setHashcodeForEmailActivation(email);
+                String code = redisService.getHashcodeForEmailActivation(email);
+                mailService.createMessageForEmailActivationAndSend(email, code);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
         }
-        else {
-            redisService.setHashcodeForEmailActivation(email);
-            String code = redisService.getHashcodeForEmailActivation(email);
-            mailService.createMessageForEmailActivationAndSend(email, code);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
