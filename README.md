@@ -3,7 +3,7 @@ This application allows you to write comments for traders of game objects. Also,
 Technologies:
   * Spring MVC
   * Spring Security
-  * Hibernate
+  * Hibernate 
   * MySQL
-  * Redis
+  * Redis 
   * Mail Service
