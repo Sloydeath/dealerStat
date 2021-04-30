@@ -11,12 +11,13 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query("SELECT u FROM User u WHERE u.email = :email AND u.active = true")
-    User findByUserEmailAndActive(@Param("email") String email);
+    @Query("SELECT u FROM User u WHERE u.active = false ")
+    List<User> findAllNotActive();
 
     @Query("SELECT u FROM User u WHERE u.email = :email")
     User findByUserEmail(@Param("email") String email);
 
-    @Query("SELECT u.id AS id, u.firstName AS firstName, u.lastName AS lastName, u.email AS email, COUNT(c.id) AS points FROM User u JOIN Comment c ON c.user.id = u.id GROUP BY u.id")
+    @Query("SELECT u.id AS id, u.firstName AS firstName, u.lastName AS lastName, u.email AS email, COUNT(c.id) " +
+            "AS points FROM User u JOIN Comment c ON c.user.id = u.id GROUP BY u.id ORDER BY points DESC")
     List<IRating> getTradersRating();
 }

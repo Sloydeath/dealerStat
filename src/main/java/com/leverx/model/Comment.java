@@ -1,6 +1,7 @@
 package com.leverx.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,17 +19,20 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "message", nullable = false)
+    @Column(name = "message")
     private String message;
 
-    @Column(name = "created_at", nullable = false)
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING,
+            pattern = "dd-MM-yyyy hh:mm:ss")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "approved", nullable = false)
+    @Column(name = "approved")
     private boolean approved;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "trader_id_fk", nullable = false)
+    @JoinColumn(name = "trader_id_fk")
     private User user;
 
     @Override

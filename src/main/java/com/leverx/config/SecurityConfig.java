@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/traders/**").hasAnyAuthority("TRADER", "ADMIN")
                 .and()
                     .formLogin()
-                    .loginPage("/login")
+//                    .loginPage("/login")
                     .failureHandler(authenticationFailureHandler())
                     .permitAll()
                 .and()
@@ -45,6 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .clearAuthentication(true)
                         .permitAll();
     }
+
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> manageConfig = auth.inMemoryAuthentication();
+//
+//        manageConfig.withUser("user").password(passwordEncoder().encode("user")).authorities("TRADER");
+//        manageConfig.withUser("admin").password(passwordEncoder().encode("admin")).authorities("ADMIN");
+//    }
 
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {

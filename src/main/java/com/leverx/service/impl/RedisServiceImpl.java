@@ -25,8 +25,8 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public String getHashcodeForPasswordReset(String email) {
-        return redisRepository.getHashcode(PREFIX_EMAIL_PASSWORD_RESET + email).toString();
+    public Object getHashcodeForPasswordReset(String email) {
+        return redisRepository.getHashcode(PREFIX_EMAIL_PASSWORD_RESET + email);
     }
 
     @Override
@@ -46,8 +46,8 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public String getHashcodeForEmailActivation(String email) {
-        return redisRepository.getHashcode(email).toString();
+    public Object getHashcodeForEmailActivation(String email) {
+        return redisRepository.getHashcode(email);
     }
 
     @Override

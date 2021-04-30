@@ -31,7 +31,12 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     private void confirmRegistration(OnRegistrationCompleteEvent event) throws MessagingException {
         User user = event.getUser();
         redisService.setHashcodeForEmailActivation(user.getEmail());
-        String hashcode = redisService.getHashcodeForEmailActivation(user.getEmail());
-        mailService.createMessageForEmailActivationAndSend(user.getEmail(), hashcode);
+        Object hashcode = redisService.getHashcodeForEmailActivation(user.getEmail());
+        if (hashcode != null) {
+            mailService.createMessageForEmailActivationAndSend(user.getEmail(), hashcode.toString());
+        }
+        else {
+            throw new RuntimeException();
+        }
     }
 }

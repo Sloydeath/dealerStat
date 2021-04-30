@@ -37,7 +37,7 @@ public class CommentController {
     public ResponseEntity<?> saveComment(@RequestBody Comment newComment, @PathVariable Long id) {
         User user = userService.findUserById(id);
         Comment comment = new Comment();
-        if (user != null) {
+        if (user != null && user.isActive()) {
             comment.setApproved(false);
             comment.setMessage(newComment.getMessage());
             comment.setCreatedAt(LocalDateTime.now());
@@ -48,12 +48,5 @@ public class CommentController {
         else {
             throw new UserNotFoundException("User not found");
         }
-    }
-
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUserById(@PathVariable("id") Long id) {
-        return userService.deleteUserById(id)
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 }

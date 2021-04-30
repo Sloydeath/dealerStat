@@ -14,12 +14,10 @@ import java.util.List;
 public class GameObjectController {
 
     private final GameObjectService gameObjectService;
-    private final UserService userService;
 
     @Autowired
-    public GameObjectController(GameObjectService gameObjectService, UserService userService) {
+    public GameObjectController(GameObjectService gameObjectService) {
         this.gameObjectService = gameObjectService;
-        this.userService = userService;
     }
 
     @GetMapping("/objects")

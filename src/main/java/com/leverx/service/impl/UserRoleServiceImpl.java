@@ -1,6 +1,7 @@
 package com.leverx.service.impl;
 
 import com.leverx.model.UserRole;
+import com.leverx.model.enums.Role;
 import com.leverx.repository.UserRoleRepository;
 import com.leverx.service.UserRoleService;
 import org.apache.log4j.Logger;
@@ -56,5 +57,10 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public UserRole findById(Long id) {
         return userRoleRepository.findById(id).orElse(new UserRole());
+    }
+
+    @Override
+    public UserRole findRoleByName(Role role) {
+        return userRoleRepository.findRoleByName(role);
     }
 }

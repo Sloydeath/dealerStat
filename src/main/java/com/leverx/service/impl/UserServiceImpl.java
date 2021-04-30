@@ -2,11 +2,10 @@ package com.leverx.service.impl;
 
 import com.leverx.error.exception.UserAlreadyExistException;
 import com.leverx.model.User;
-import com.leverx.model.UserRole;
 import com.leverx.model.custom.IRating;
-import com.leverx.model.custom.Rating;
 import com.leverx.model.enums.Role;
 import com.leverx.repository.UserRepository;
+import com.leverx.service.UserRoleService;
 import com.leverx.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +23,13 @@ public class UserServiceImpl implements UserService {
     private static final Logger log = Logger.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserRoleService userRoleService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, UserRoleService userRoleService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userRoleService = userRoleService;
     }
 
     @Override
@@ -61,7 +62,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean deleteUserById(Long id) {
         if (userRepository.findById(id).isPresent()) {
-            if (userRepository.findById(id).get().getRoles().stream().noneMatch(r -> r.getName().equals(Role.ADMIN))) {
+            User user;
+            if ((user = userRepository.findById(id).get()).getRoles().stream().noneMatch(r -> r.getName().equals(Role.ADMIN))) {
+                user.setRoles(null);
                 userRepository.deleteById(id);
                 return true;
             }
@@ -76,7 +79,7 @@ public class UserServiceImpl implements UserService {
         }
         user.setActive(false);
         user.setCreatedAt(LocalDateTime.now());
-        user.setRoles(Collections.singleton(new UserRole(Role.TRADER)));
+        user.addRole(userRoleService.findRoleByName(Role.TRADER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         log.info("--- New user was added ---");
@@ -91,5 +94,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<IRating> getTradersRating() {
         return userRepository.getTradersRating();
+    }
+
+    @Override
+    public List<User> getAllNotActive() {
+        return userRepository.findAllNotActive();
     }
 }
