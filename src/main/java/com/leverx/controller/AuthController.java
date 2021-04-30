@@ -1,5 +1,6 @@
 package com.leverx.controller;
 
+import com.leverx.error.exception.UserIsNotActiveException;
 import com.leverx.error.exception.UserNotFoundException;
 import com.leverx.model.User;
 import com.leverx.model.dto.PasswordDTO;
@@ -34,38 +35,42 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping("/confirm/{email}/{hash_code}")
+    @GetMapping("/confirm/{email}/{hash_code}")
     public ResponseEntity<?> activateUserByCode(@PathVariable("hash_code") String hashCode, @PathVariable("email") String email) {
-
-        if (redisService.getHashcodeForEmailActivation(email).equals(hashCode)) {
-            User user = userService.findUserByEmail(email);
-            user.setActive(true);
-            userService.update(user);
-            redisService.deleteHashcodeForEmailActivation(email);
-            return new ResponseEntity<>(HttpStatus.OK);
+        if (redisService.getHashcodeForEmailActivation(email) != null) {
+            if (redisService.getHashcodeForEmailActivation(email).equals(hashCode)) {
+                User user = userService.findUserByEmail(email);
+                user.setActive(true);
+                userService.update(user);
+                log.info("In method activateUserByCode: user activated email " + email);
+                redisService.deleteHashcodeForEmailActivation(email);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
-        redisService.deleteHashcodeForEmailActivation(email);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/forgot_password")
-    public ResponseEntity<?> sendCodeToResetPassword(@RequestParam("email") String email, Model model) {
+    public ResponseEntity<?> sendCodeToResetPassword(@RequestParam("email") String email) {
         User user = userService.findUserByEmail(email);
         if (user == null) {
             log.info("In method sendCodeToResetPassword: User not found Exception");
             throw new UserNotFoundException("User not found");
         }
         redisService.setHashcodeForPasswordReset(email);
-        final String hashCode = redisService.getHashcodeForPasswordReset(email);
-        try {
-            mailService.createMessageForPasswordResetAndSend(email, hashCode);
+        final Object hashcode = redisService.getHashcodeForPasswordReset(email);
+        if (hashcode != null) {
+            try {
+                mailService.createMessageForPasswordResetAndSend(email, hashcode.toString());
+            } catch (MessagingException ex) {
+                log.error("Error in method sendCodeToResetPassword: " + ex.getMessage());
+                return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+            }
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
-        catch (MessagingException ex) {
-            log.error("Error in method sendCodeToResetPassword: " + ex.getMessage());
-            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        model.addAttribute(user);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/reset")
@@ -95,9 +100,14 @@ public class AuthController {
             }
             if (!user.isActive()) {
                 redisService.setHashcodeForEmailActivation(email);
-                String code = redisService.getHashcodeForEmailActivation(email);
-                mailService.createMessageForEmailActivationAndSend(email, code);
-                return new ResponseEntity<>(HttpStatus.CREATED);
+                Object hashcode = redisService.getHashcodeForEmailActivation(email);
+                if (hashcode != null) {
+                    mailService.createMessageForEmailActivationAndSend(email, hashcode.toString());
+                    return new ResponseEntity<>(HttpStatus.CREATED);
+                }
+                else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
             }
         }
         return new ResponseEntity<>(HttpStatus.OK);

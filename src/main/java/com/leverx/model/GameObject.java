@@ -1,5 +1,6 @@
 package com.leverx.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,7 +10,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "game_objects")
 @Entity
 public class GameObject {
@@ -18,15 +18,21 @@ public class GameObject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "text", nullable = false)
+    @Column(name = "text")
     private String text;
 
-    @Column(name = "created_at", nullable = false)
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING,
+            pattern = "dd-MM-yyyy hh:mm:ss")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING,
+            pattern = "dd-MM-yyyy hh:mm:ss")
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 

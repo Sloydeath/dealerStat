@@ -1,7 +1,6 @@
 package com.leverx.controller;
 
 import com.leverx.model.custom.IRating;
-import com.leverx.model.custom.Rating;
 import com.leverx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

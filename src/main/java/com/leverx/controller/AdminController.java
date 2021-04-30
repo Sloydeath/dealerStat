@@ -2,10 +2,13 @@ package com.leverx.controller;
 
 import com.leverx.error.exception.CommentNotFoundException;
 import com.leverx.model.Comment;
+import com.leverx.model.User;
 import com.leverx.service.CommentService;
+import com.leverx.service.GameObjectService;
 import com.leverx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +21,24 @@ public class AdminController {
 
     private final CommentService commentService;
     private final UserService userService;
+    private final GameObjectService gameObjectService;
 
     @Autowired
-    public AdminController(CommentService commentService, UserService userService) {
+    public AdminController(CommentService commentService, UserService userService, GameObjectService gameObjectService) {
         this.commentService = commentService;
         this.userService = userService;
+        this.gameObjectService = gameObjectService;
     }
 
-    @GetMapping("/comments")
+    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> getAllNotActiveUsers() {
+        List<User> users = userService.getAllNotActive();
+        return users != null && !users.isEmpty()
+                ? new ResponseEntity<>(users, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping(value = "/comments", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Comment>> getAllNotApprovedComments() {
         List<Comment> comments = commentService.findAllNotApproved();
         return comments != null && !comments.isEmpty()
@@ -33,10 +46,10 @@ public class AdminController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/comments/{id}")
+    @PutMapping(value = "/comments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateComment(@RequestBody Comment newComment, @PathVariable Long id) {
         Comment comment = commentService.findById(id);
-        if (comment != null) {
+        if (comment != null && comment.getId() != null) {
             comment.setApproved(newComment.isApproved());
             comment.setMessage(newComment.getMessage());
             comment.setCreatedAt(LocalDateTime.now());
@@ -50,19 +63,27 @@ public class AdminController {
         }
     }
 
-    @DeleteMapping("/comments/{id}")
+    @DeleteMapping(value = "/comments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteComment(@PathVariable Long id) {
         boolean deleted = commentService.deleteById(id);
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping(value = "/users/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         boolean deleted = userService.deleteUserById(id);
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping(value = "/objects/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteGameObject(@PathVariable Long id) {
+        boolean deleted = gameObjectService.deleteGameObjectById(id);
+        return deleted
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

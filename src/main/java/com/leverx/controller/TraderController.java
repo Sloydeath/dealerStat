@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/traders")
 public class TraderController {
+
     private final UserService userService;
     private final GameObjectService gameObjectService;
 
@@ -28,25 +29,28 @@ public class TraderController {
     }
 
     @PutMapping("/objects/{id}")
-    public ResponseEntity<?> updateObjectById(@RequestBody GameObject newGameObject, @PathVariable Long id) {
-        GameObject gameObject = gameObjectService.findGameObjectById(id);
-        if (gameObject != null) {
-            gameObject.setText(newGameObject.getText());
-            gameObject.setTitle(newGameObject.getTitle());
-            gameObject.setUpdatedAt(LocalDateTime.now());
-            boolean updated = gameObjectService.update(gameObject);
-            return updated
-                    ? new ResponseEntity<>(HttpStatus.OK)
-                    : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    public ResponseEntity<?> updateObjectById(@RequestBody GameObject newGameObject, @PathVariable Long id, Principal principal) {
+        User authUser = userService.findUserByEmail(principal.getName());
+        if (gameObjectService.findAll().stream().anyMatch(go -> go.getUser().equals(authUser) && go.getId().equals(id))) {
+            GameObject gameObject = gameObjectService.findGameObjectById(id);
+            if (gameObject != null && gameObject.getId() != null) {
+                gameObject.setText(newGameObject.getText());
+                gameObject.setTitle(newGameObject.getTitle());
+                gameObject.setUpdatedAt(LocalDateTime.now());
+                boolean updated = gameObjectService.update(gameObject);
+                return updated
+                        ? new ResponseEntity<>(HttpStatus.OK)
+                        : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                throw new GameObjectNotFoundException(id);
+            }
         }
-        else {
-            throw new GameObjectNotFoundException(id);
-        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
-    @PostMapping("/{id}/objects")
-    public ResponseEntity<?> saveNewGameObject(@RequestBody GameObject newGameObject, @PathVariable Long id) {
-        User user = userService.findUserById(id);
+    @PostMapping("/objects")
+    public ResponseEntity<?> saveNewGameObject(@RequestBody GameObject newGameObject, Principal principal) {
+        User user = userService.findUserByEmail(principal.getName());
         GameObject gameObject = new GameObject();
         if (user != null) {
             gameObject.setTitle(newGameObject.getTitle());
@@ -62,11 +66,15 @@ public class TraderController {
     }
 
     @DeleteMapping("/objects/{id}")
-    public ResponseEntity<?> deleteGameObject(@PathVariable Long id) {
-        boolean deleted = gameObjectService.deleteGameObjectById(id);
-        return deleted
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    public ResponseEntity<?> deleteGameObject(@PathVariable Long id, Principal principal) {
+        User authUser = userService.findUserByEmail(principal.getName());
+        if (gameObjectService.findAll().stream().anyMatch(go -> go.getUser().equals(authUser) && go.getId().equals(id))) {
+            boolean deleted = gameObjectService.deleteGameObjectById(id);
+            return deleted
+                    ? new ResponseEntity<>(HttpStatus.OK)
+                    : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @GetMapping("/objects/my")

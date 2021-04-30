@@ -63,10 +63,11 @@ public class JpaConfig {
 
     private Properties jpaProperties() {
         Properties jpaProperties = new Properties();
-        jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        jpaProperties.setProperty("hibernate.show-sql", "true");
-        jpaProperties.setProperty("hibernate.naming.implicit-strategy", "org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl");
-        jpaProperties.setProperty("hibernate.naming.physical-strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
+        jpaProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        jpaProperties.setProperty("hibernate.show-sql", env.getProperty("hibernate.show-sql"));
+        jpaProperties.setProperty("hibernate.naming.implicit-strategy", env.getProperty("hibernate.naming.implicit-strategy"));
+        jpaProperties.setProperty("hibernate.naming.physical-strategy", env.getProperty("hibernate.naming.physical-strategy"));
+        jpaProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 
         return jpaProperties;
     }

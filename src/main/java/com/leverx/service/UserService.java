@@ -15,4 +15,5 @@ public interface UserService {
     User registerNewUserAccount(User user);
     boolean isExists(String email);
     List<IRating> getTradersRating();
+    List<User> getAllNotActive();
 }

@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.leverx.annotations.PasswordMatches;
 import com.leverx.annotations.ValidEmail;
 import lombok.*;
 
@@ -14,7 +14,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@PasswordMatches
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,21 +35,24 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "created_at", nullable = false)
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING,
+            pattern = "dd-MM-yyyy hh:mm:ss")
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @ValidEmail
     @NotNull
     @NotEmpty
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
     @NotNull
     @NotEmpty
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "active", nullable = false)
+    @Column(name = "active")
     private boolean active;
 
     @JsonIgnore
@@ -61,12 +63,12 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<GameObject> gameObjects = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("users")
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @JsonIgnoreProperties("users")
     private Set<UserRole> roles = new HashSet<>();
 
     public void addRole(UserRole role) {
