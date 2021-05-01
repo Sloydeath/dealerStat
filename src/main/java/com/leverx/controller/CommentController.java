@@ -5,6 +5,7 @@ import com.leverx.model.Comment;
 import com.leverx.model.User;
 import com.leverx.service.CommentService;
 import com.leverx.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 public class CommentController {
 
+    private static final Logger log = Logger.getLogger(CommentController.class);
     private final CommentService commentService;
     private final UserService userService;
 
@@ -46,6 +48,7 @@ public class CommentController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         else {
+            log.debug("In method POST/saveComment: User not found exception");
             throw new UserNotFoundException("User not found");
         }
     }

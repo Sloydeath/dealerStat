@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
             return true;
         }
         else {
-            log.info("--- No such comment in database ---");
+            log.info("In method updateComment: No such comment in database");
             return false;
         }
     }

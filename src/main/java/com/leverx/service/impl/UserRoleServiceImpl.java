@@ -35,7 +35,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             return true;
         }
         else {
-            log.info("--- No such role in database ---");
+            log.info("In method updateUserRole: No such role in database");
             return false;
         }
     }

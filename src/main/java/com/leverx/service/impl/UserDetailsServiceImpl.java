@@ -33,11 +33,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByUserEmail(email);
         if (user == null) {
-            log.info(String.format("In method loadUserByUsername: User with email %s was not found", email));
+            log.debug(String.format("In method loadUserByUsername: User with email %s was not found", email));
             throw new UsernameNotFoundException(String.format("User with email %s was not found", email));
         }
         else if (!user.isActive()) {
-            log.info("User's email is not activated");
+            log.debug("User's email is not activated");
             throw new UserIsNotActiveException("User's email is not activated");
         }
         return new org.springframework.security.core.userdetails.User(

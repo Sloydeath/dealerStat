@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Game object not found")
 public class GameObjectNotFoundException extends RuntimeException {
-    public GameObjectNotFoundException(Long id) {
-        super("Couldn't find game object " + id);
+    public GameObjectNotFoundException(String message) {
+        super(message);
     }
 }

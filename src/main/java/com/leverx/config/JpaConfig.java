@@ -18,6 +18,11 @@ import javax.sql.DataSource;
 import java.util.Objects;
 import java.util.Properties;
 
+/**
+ * This class provides configuration for JPA
+ *
+ * @author Andrew Panas
+ */
 @Configuration
 @PropertySource("classpath:database.properties")
 @EnableJpaRepositories(basePackages = {"com.leverx"})

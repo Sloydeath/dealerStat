@@ -6,6 +6,7 @@ import com.leverx.model.User;
 import com.leverx.service.CommentService;
 import com.leverx.service.GameObjectService;
 import com.leverx.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping("/admins")
 public class AdminController {
 
+    private static final Logger log = Logger.getLogger(AdminController.class);
     private final CommentService commentService;
     private final UserService userService;
     private final GameObjectService gameObjectService;
@@ -59,7 +61,8 @@ public class AdminController {
                     : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
         else {
-            throw new CommentNotFoundException(id);
+            log.debug("In method POST/updateComment: Comment not found");
+            throw new CommentNotFoundException("Comment not found");
         }
     }
 

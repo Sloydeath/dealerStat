@@ -6,6 +6,7 @@ import com.leverx.model.GameObject;
 import com.leverx.model.User;
 import com.leverx.service.GameObjectService;
 import com.leverx.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping("/traders")
 public class TraderController {
 
+    private static final Logger log = Logger.getLogger(TraderController.class);
     private final UserService userService;
     private final GameObjectService gameObjectService;
 
@@ -42,7 +44,8 @@ public class TraderController {
                         ? new ResponseEntity<>(HttpStatus.OK)
                         : new ResponseEntity<>(HttpStatus.NOT_FOUND);
             } else {
-                throw new GameObjectNotFoundException(id);
+                log.debug("In method PUT/updateObjectById: Game Object not found");
+                throw new GameObjectNotFoundException("Game Object not found");
             }
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -61,6 +64,7 @@ public class TraderController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         else {
+            log.debug("In method POST/saveNewGameObject: User is not found");
             throw new UserNotFoundException("User is not found");
         }
     }
