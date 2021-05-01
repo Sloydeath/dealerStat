@@ -1,4 +1,4 @@
-###Stage 1:
+##Stage 1:
 * Design of project structure: 2 hours
 * Database design: 3 hours
 * Project customization: 4 hours
@@ -11,6 +11,6 @@
 * Registration 7 hours
 * Exceptions and handlers: 6 hours
 ###Stage 3:
-* Testing:
+* Testing: 6 hours
 * Documentation:
 * Cloud Foundry:
