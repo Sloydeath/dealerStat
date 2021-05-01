@@ -1,6 +1,8 @@
 package com.leverx.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -39,9 +41,20 @@ public class WebConfig implements WebMvcConfigurer {
         registry.viewResolver(resolver);
     }
 
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        return objectMapper;
+    }
+
+    @Bean
+    public ObjectWriter objectWriter() {
+        return objectMapper().writer().withDefaultPrettyPrinter();
+    }
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/login").setViewName("login");
         registry.addViewController("/forgot_password").setViewName("forgot_password");
         registry.addViewController("/auth/forgot_password").setViewName("new_password");
         registry.addViewController("/registration").setViewName("registration");
