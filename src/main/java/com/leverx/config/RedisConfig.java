@@ -13,8 +13,12 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import java.util.Random;
 
+/**
+ * This class provides configuration for Redis
+ *
+ * @author Andrew Panas
+ */
 @Configuration
 public class RedisConfig {
     
@@ -28,8 +32,8 @@ public class RedisConfig {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(jedisConnectionFactory());
         template.setKeySerializer(new StringRedisSerializer());
-        template.setHashValueSerializer(new GenericToStringSerializer<Object>(Object.class));
-        template.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
+        template.setHashValueSerializer(new GenericToStringSerializer<>(Object.class));
+        template.setValueSerializer(new GenericToStringSerializer<>(Object.class));
 
         return template;
     }

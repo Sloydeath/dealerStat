@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         else {
-            log.info("--- No such user in database ---");
+            log.info("In method updateUser: No such user in database");
             return false;
         }
     }
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
         user.addRole(userRoleService.findRoleByName(Role.TRADER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        log.info("--- New user was added ---");
+        log.info("In method registerNewUserAccount: New user was added");
         return user;
     }
 

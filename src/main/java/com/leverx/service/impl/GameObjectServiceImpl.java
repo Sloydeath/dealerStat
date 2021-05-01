@@ -34,7 +34,7 @@ public class GameObjectServiceImpl implements GameObjectService {
             return true;
         }
         else {
-            log.info("--- No such Game Object in database ---");
+            log.info("In method updateGameObject: No such Game Object in database");
             return false;
         }
     }

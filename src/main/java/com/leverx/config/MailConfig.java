@@ -5,11 +5,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * This class provides configuration for Mail Service
+ *
+ * @author Andrew Panas
+ */
 @Configuration
 public class MailConfig {
 

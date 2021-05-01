@@ -35,6 +35,7 @@ public class RegistrationController {
         log.debug(String.format("Registering user account with information: %s", user));
         User registered = userService.registerNewUserAccount(user);
         if (registered == null) {
+            log.debug("In method registerUserAccount: User already exist exception");
             throw new UserAlreadyExistException();
         }
         String appUrl = "http://" + request.getServerName() + ":" +

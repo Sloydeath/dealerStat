@@ -36,7 +36,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
             mailService.createMessageForEmailActivationAndSend(user.getEmail(), hashcode.toString());
         }
         else {
-            throw new RuntimeException();
+            throw new RuntimeException("Hash doesn't exist");
         }
     }
 }

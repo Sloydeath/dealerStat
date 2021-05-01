@@ -1,6 +1,5 @@
 package com.leverx.controller;
 
-import com.leverx.error.exception.UserIsNotActiveException;
 import com.leverx.error.exception.UserNotFoundException;
 import com.leverx.model.User;
 import com.leverx.model.dto.PasswordDTO;
@@ -34,14 +33,14 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/confirm/{email}/{hash_code}")
+    @PostMapping("/confirm/{email}/{hash_code}")
     public ResponseEntity<?> activateUserByCode(@PathVariable("hash_code") String hashCode, @PathVariable("email") String email) {
         if (redisService.getHashcodeForEmailActivation(email) != null) {
             if (redisService.getHashcodeForEmailActivation(email).equals(hashCode)) {
                 User user = userService.findUserByEmail(email);
                 user.setActive(true);
                 userService.update(user);
-                log.info("In method activateUserByCode: user activated email " + email);
+                log.debug("In method activateUserByCode: user activated email " + email);
                 redisService.deleteHashcodeForEmailActivation(email);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
@@ -53,7 +52,7 @@ public class AuthController {
     public ResponseEntity<?> sendCodeToResetPassword(@RequestParam("email") String email) {
         User user = userService.findUserByEmail(email);
         if (user == null) {
-            log.info("In method sendCodeToResetPassword: User not found Exception");
+            log.debug("In method sendCodeToResetPassword: User not found Exception");
             throw new UserNotFoundException("User not found");
         }
         redisService.setHashcodeForPasswordReset(email);
