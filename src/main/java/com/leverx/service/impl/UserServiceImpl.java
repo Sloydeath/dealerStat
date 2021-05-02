@@ -16,6 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
 
+
+/**
+ * This is a service class of user
+ *
+ * @author Andrew Panas
+ */
+
+
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {

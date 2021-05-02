@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Calendar;
 
+/**
+ * This class describes handler when user can't auth
+ *
+ * @author Andrew Panas
+ */
+
 @ControllerAdvice
 public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
 

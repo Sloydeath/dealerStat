@@ -1,5 +1,10 @@
 package com.leverx.model.enums;
 
+/**
+ * Enumeration of role
+ *
+ * @author Andrew Panas
+ */
 
 public enum Role {
     ADMIN("ADMIN"),

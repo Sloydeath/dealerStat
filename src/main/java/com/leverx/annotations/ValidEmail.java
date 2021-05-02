@@ -11,6 +11,13 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * This annotation validate email of user
+ * It should be in format "email@mail.com"
+ *
+ * @author Andrew Panas
+ */
+
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = EmailValidator.class)

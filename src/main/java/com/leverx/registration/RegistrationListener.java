@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
 
+/**
+ * @author Andrew Panas
+ */
+
 @Component
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
 

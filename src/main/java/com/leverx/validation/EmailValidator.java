@@ -7,6 +7,10 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Andrew Panas
+ */
+
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+" +

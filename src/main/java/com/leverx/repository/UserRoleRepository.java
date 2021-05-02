@@ -7,6 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repository layer
+ *
+ * @author Andrew Panas
+ */
+
 @Repository
 public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
     @Query("SELECT ur FROM UserRole ur WHERE ur.name = :role")

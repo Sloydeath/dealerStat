@@ -2,7 +2,7 @@ package com.leverx.controller;
 
 import com.leverx.error.exception.UserNotFoundException;
 import com.leverx.model.User;
-import com.leverx.model.dto.PasswordDTO;
+import com.leverx.model.dto.PasswordDto;
 import com.leverx.service.MailService;
 import com.leverx.service.RedisService;
 import com.leverx.service.UserService;
@@ -14,6 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+
+/**
+ * Controller for authentication's URL.
+ * Check src/main/resources/postman/Dealer_stat.postman_collection.json for more detail URL mapping.
+ *
+ * @author Andrew Panas
+ */
 
 @RestController
 @RequestMapping("/auth")
@@ -72,7 +79,7 @@ public class AuthController {
     }
 
     @PostMapping("/reset")
-    public ResponseEntity<?> resetPassword(@RequestParam("email") String email, @RequestBody PasswordDTO password) {
+    public ResponseEntity<?> resetPassword(@RequestParam("email") String email, @RequestBody PasswordDto password) {
         User user = userService.findUserByEmail(email);
         if (user == null) {
             log.info("In method resetPassword: User not found Exception");

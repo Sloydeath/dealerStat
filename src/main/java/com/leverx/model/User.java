@@ -7,12 +7,19 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.leverx.annotations.ValidEmail;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+/**
+ * Model class of user
+ *
+ * @author Andrew Panas
+ */
 
 @Getter
 @Setter
@@ -47,6 +54,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
     @NotEmpty
     @Column(name = "password")

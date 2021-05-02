@@ -8,6 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository layer
+ *
+ * @author Andrew Panas
+ */
+
 @Repository
 public interface GameObjectRepository extends JpaRepository<GameObject, Long> {
     @Query("SELECT go FROM GameObject go WHERE go.user.id = :id AND go.user.active = true")

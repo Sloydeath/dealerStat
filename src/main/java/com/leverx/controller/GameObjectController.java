@@ -9,6 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller for game object's URL.
+ * Check src/main/resources/postman/Dealer_stat.postman_collection.json for more detail URL mapping.
+ *
+ * @author Andrew Panas
+ */
+
 @RestController
 public class GameObjectController {
 

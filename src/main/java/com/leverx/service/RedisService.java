@@ -1,5 +1,11 @@
 package com.leverx.service;
 
+/**
+ * Interface of redis service
+ *
+ * @author Andrew Panas
+ */
+
 public interface RedisService {
     void setHashcodeForPasswordReset(final String email);
     Object getHashcodeForPasswordReset(final String email);

@@ -7,6 +7,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Model class of game object
+ *
+ * @author Andrew Panas
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor

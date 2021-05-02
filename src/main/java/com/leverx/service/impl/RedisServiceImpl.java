@@ -6,6 +6,12 @@ import com.leverx.util.HashCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * This is a service class of redis
+ *
+ * @author Andrew Panas
+ */
+
 @Service
 public class RedisServiceImpl implements RedisService {
 

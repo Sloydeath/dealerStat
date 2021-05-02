@@ -9,6 +9,12 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * This is a service class of mail
+ *
+ * @author Andrew Panas
+ */
+
 @Service
 public class MailServiceImpl implements MailService {
 
@@ -41,7 +47,7 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void createMessageForPasswordResetAndSend(String email, String hashcode) throws MessagingException {
+    public void createMessageForPasswordResetAndSend(String email, String hashcode) {
         MimeMessage message = new MimeMessage(mailSession);
         try {
             message.setFrom(new InternetAddress(mailSession.getProperty("mail.smtps.user")));

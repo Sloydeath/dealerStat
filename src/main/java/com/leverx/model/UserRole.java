@@ -9,6 +9,12 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Model class of role
+ *
+ * @author Andrew Panas
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor
