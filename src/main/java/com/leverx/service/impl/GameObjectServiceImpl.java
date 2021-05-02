@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * This is a service class of Game Objects
+ * This is a service class of Game Object
  *
  * @author Andrew Panas
  */

@@ -7,6 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Repository layer
+ *
+ * @author Andrew Panas
+ */
+
 @Repository
 public class RedisRepositoryImpl implements RedisRepository {
     private final RedisTemplate<String, Object> redisTemplate;

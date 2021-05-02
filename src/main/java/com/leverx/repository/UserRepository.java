@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
+ * Repository layer
+ *
  * @author Andrew Panas
  */
 

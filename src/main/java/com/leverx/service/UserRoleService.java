@@ -7,6 +7,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * Interface of role service
+ *
+ * @author Andrew Panas
+ */
+
 public interface UserRoleService {
     void save(UserRole userRole);
     boolean update(UserRole userRole);

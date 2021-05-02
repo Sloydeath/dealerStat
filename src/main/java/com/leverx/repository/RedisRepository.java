@@ -1,6 +1,8 @@
 package com.leverx.repository;
 
 /**
+ * Repository layer
+ *
  * @author Andrew Panas
  */
 

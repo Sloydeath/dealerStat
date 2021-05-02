@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * This is a service class of comments
+ * This is a service class of comment
  *
  * @author Andrew Panas
  */

@@ -18,7 +18,7 @@ import java.util.*;
 
 
 /**
- * This is a service class of users
+ * This is a service class of user
  *
  * @author Andrew Panas
  */

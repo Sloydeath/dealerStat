@@ -6,6 +6,12 @@ import com.leverx.model.User;
 import com.leverx.model.custom.IRating;
 import com.leverx.model.custom.Rating;
 
+/**
+ * Interface of user service
+ *
+ * @author Andrew Panas
+ */
+
 public interface UserService {
     boolean update(User user);
     List<User> findAll();

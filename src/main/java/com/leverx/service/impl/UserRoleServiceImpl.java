@@ -13,7 +13,7 @@ import java.util.List;
 
 
 /**
- * This is a service class of roles
+ * This is a service class of role
  *
  * @author Andrew Panas
  */
