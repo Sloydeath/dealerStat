@@ -17833,3 +17833,34 @@ insert into users (id, active, created_at, email, first_name, last_name, passwor
 2021-05-02 00:20:06 INFO  Dialect:158 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 2021-05-02 00:20:07 INFO  Version:21 - HV000001: Hibernate Validator 6.1.5.Final
 2021-05-02 00:20:08 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-02 01:28:09 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-02 01:28:09 INFO  Version:46 - HHH000412: Hibernate Core {5.4.1.Final}
+2021-05-02 01:28:10 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-05-02 01:28:11 INFO  Dialect:158 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-05-02 01:28:12 INFO  Version:21 - HV000001: Hibernate Validator 6.1.5.Final
+2021-05-02 01:28:14 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-02 01:48:29 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-02 01:48:30 INFO  Version:46 - HHH000412: Hibernate Core {5.4.1.Final}
+2021-05-02 01:48:30 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-05-02 01:48:32 INFO  Dialect:158 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-05-02 01:48:32 INFO  Version:21 - HV000001: Hibernate Validator 6.1.5.Final
+2021-05-02 01:48:34 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-02 01:54:32 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-02 01:54:32 INFO  Version:46 - HHH000412: Hibernate Core {5.4.1.Final}
+2021-05-02 01:54:32 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-05-02 01:54:33 INFO  Dialect:158 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-05-02 01:54:34 INFO  Version:21 - HV000001: Hibernate Validator 6.1.5.Final
+2021-05-02 01:54:35 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-02 01:56:26 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-02 01:56:26 INFO  Version:46 - HHH000412: Hibernate Core {5.4.1.Final}
+2021-05-02 01:56:26 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-05-02 01:56:27 INFO  Dialect:158 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-05-02 01:56:28 INFO  Version:21 - HV000001: Hibernate Validator 6.1.5.Final
+2021-05-02 01:56:29 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-02 01:57:35 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-02 01:57:35 INFO  Version:46 - HHH000412: Hibernate Core {5.4.1.Final}
+2021-05-02 01:57:35 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-05-02 01:57:37 INFO  Dialect:158 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-05-02 01:57:38 INFO  Version:21 - HV000001: Hibernate Validator 6.1.5.Final
+2021-05-02 01:57:39 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-02 01:58:16 INFO  UserServiceImpl:85 - In method registerNewUserAccount: New user was added

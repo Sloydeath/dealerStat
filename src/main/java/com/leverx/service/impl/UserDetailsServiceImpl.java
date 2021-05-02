@@ -17,6 +17,14 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
+/**
+ * This is a service class of user details
+ *
+ * @author Andrew Panas
+ */
+
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

@@ -7,6 +7,12 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * This class is a model of error @ResponseBody
+ *
+ * @author Andrew Panas
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

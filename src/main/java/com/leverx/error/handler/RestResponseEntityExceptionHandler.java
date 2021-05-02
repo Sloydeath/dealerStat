@@ -17,6 +17,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.stream.Collectors;
 
+/**
+ * This class handlers exceptions of any type
+ *
+ * @author Andrew Panas
+ */
+
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger log = Logger.getLogger(RestResponseEntityExceptionHandler.class);

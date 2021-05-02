@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Andrew Panas
+ */
+
 @Service
 public class RedisMessageListener implements MessageListener {
     private static final Logger log = Logger.getLogger(RedisMessageListener.class);

@@ -10,6 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This is a service class of Game Objects
+ *
+ * @author Andrew Panas
+ */
+
 @Service
 @Transactional
 public class GameObjectServiceImpl implements GameObjectService {

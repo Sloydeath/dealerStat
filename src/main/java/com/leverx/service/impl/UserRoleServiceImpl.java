@@ -11,6 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
+/**
+ * This is a service class of roles
+ *
+ * @author Andrew Panas
+ */
+
+
 @Service
 @Transactional
 public class UserRoleServiceImpl implements UserRoleService {

@@ -1,5 +1,9 @@
 package com.leverx.repository;
 
+/**
+ * @author Andrew Panas
+ */
+
 public interface RedisRepository {
     void setHashcode(final String email, String hashcode);
     Object getHashcode(final String email);
