@@ -15,6 +15,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 
+/**
+ * Controller for authentication's URL.
+ * Check src/main/resources/postman/Dealer_stat.postman_collection.json for more detail URL mapping.
+ *
+ * @author Andrew Panas
+ */
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

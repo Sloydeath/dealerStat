@@ -16,6 +16,15 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+/**
+ * Controller for trader's URL.
+ * Check src/main/resources/postman/Dealer_stat.postman_collection.json for more detail URL mapping.
+ *
+ * @author Andrew Panas
+ */
+
+
 @RestController
 @RequestMapping("/traders")
 public class TraderController {

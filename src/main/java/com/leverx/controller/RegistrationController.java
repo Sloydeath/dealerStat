@@ -17,6 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+/**
+ * Controller for registration's URL.
+ * Check src/main/resources/postman/Dealer_stat.postman_collection.json for more detail URL mapping.
+ *
+ * @author Andrew Panas
+ */
+
 @RestController
 public class RegistrationController {
     private static final Logger log = Logger.getLogger(RegistrationController.class);
